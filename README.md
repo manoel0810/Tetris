@@ -1,5 +1,7 @@
 # Tetris
 
+#### Inspirado no repositório de [OttoBotCode](https://github.com/OttoBotCode) [TetrisGame](https://github.com/OttoBotCode/Tetris-Game)
+
 Este é um repositório do jogo Tetris desenvolvido em C# utilizando o framework Windows Presentation Foundation (WPF) na versão .NET Core 6.0.
 
 ![Tetris Screenshot](https://raw.githubusercontent.com/manoel0810/Tetris/master/tetris.png)
