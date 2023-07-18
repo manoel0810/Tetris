@@ -2,7 +2,7 @@
 
 Este é um repositório do jogo Tetris desenvolvido em C# utilizando o framework Windows Presentation Foundation (WPF) na versão .NET Core 6.0.
 
-![Tetris Screenshot]([tetris_screenshot.png](https://raw.githubusercontent.com/manoel0810/Tetris/master/tetris.png))
+![Tetris Screenshot](https://raw.githubusercontent.com/manoel0810/Tetris/master/tetris.png)
 
 ## Funcionalidades
 
