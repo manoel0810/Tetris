@@ -22,6 +22,7 @@ namespace Tetris
 
         public GameGrid GameGrid { get; }
         public BlockQueue BlockQueue { get; }
+        public SoundController SoundController { get; }
         public bool GameOver { get; private set; }
         public int Score { get; private set; }
         public bool CanHold { get; private set; }
@@ -30,6 +31,7 @@ namespace Tetris
         {
             GameGrid = new GameGrid(22, 10);
             BlockQueue = new BlockQueue();
+            SoundController = new SoundController();
             CurrentBlock = BlockQueue.GetAndUpdate();
         }
 
@@ -101,7 +103,11 @@ namespace Tetris
                 GameGrid[p.Row, p.Column] = CurrentBlock.Id;
             }
 
+            int CurrentScore = Score;
             Score += GameGrid.ClearFullRows();
+            if (Score > CurrentScore)
+                SoundController.PlaySoundAsync(new string[] { SoundController[GameSounds.PointWin], SoundController[GameSounds.MainTheme] }, true);
+
             if (IsGameOver())
                 GameOver = true;
             else

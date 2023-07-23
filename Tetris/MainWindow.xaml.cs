@@ -41,6 +41,7 @@ namespace Tetris
         private readonly int maxDelay = 1000;
         private readonly int minDelay = 75;
         private readonly int delayDecrease = 25;
+        private int BestScore = Properties.Settings.Default.BestScore;
 
         private GameState gameState = new();
 
@@ -48,6 +49,9 @@ namespace Tetris
         {
             InitializeComponent();
             imageControls = SetupGameCanvas(gameState.GameGrid);
+            gameState.SoundController.PlaySoundAsync(gameState.SoundController[GameSounds.MainTheme], true);
+
+            //gameState.SoundController.PlaySoundAsync(new string[] { gameState.SoundController[GameSounds.PointWin], gameState.SoundController[GameSounds.MainTheme] }, true);
         }
 
         private Image[,] SetupGameCanvas(GameGrid grid)
@@ -148,8 +152,16 @@ namespace Tetris
                 Draw(gameState);
             }
 
+            if (gameState.Score > BestScore)
+            {
+                Properties.Settings.Default.BestScore = gameState.Score;
+                Properties.Settings.Default.Save();
+                BestScore = gameState.Score;
+            }
+
+            gameState.SoundController.ReplaceSound(gameState.SoundController[GameSounds.GameOver]);
             GameOverMenu.Visibility = Visibility.Visible;
-            FinalScoreText.Text = $"Pontos: {gameState.Score}";
+            FinalScoreText.Text = $"Pontos: {gameState.Score}\nSeu melhor: {BestScore}";
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -198,6 +210,7 @@ namespace Tetris
         {
             gameState = new GameState();
             GameOverMenu.Visibility = Visibility.Hidden;
+            gameState.SoundController.ReplaceSound(gameState.SoundController[GameSounds.MainTheme], true);
             await GameLoop();
         }
     }
